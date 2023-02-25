@@ -21,7 +21,7 @@
 	<form id = "task-form">
 		<input type = "text" id = "new-task-input" placeholder = "Add a task"/>
 				<p class="date" style ="display:inline-block">Task Due Date:</p> 
-				<input type = "date"  placeholder = "Select a date"/>
+				<input type = "date" id = "dueDate" placeholder = "Select a date"/>
 				
 	</form>
 
@@ -44,6 +44,24 @@
 			
 	</section>
 
+	<div class="container">
+		<div class="row">
+		  <div class="col-lg" style = "background-color: rgb(147, 123, 123);">
+			<h3>High Priority</h3>
+			<ul id="high-priority-tasks" class ="list-group"></ul>
+		  </div>
+		  <hr class="dashed">
+		  <div class="col-lg" style = "background-color: rgb(129, 144, 114);">
+			<h3>Medium Priority</h3>
+			<ul id="medium-priority-tasks" class ="list-group"></ul>
+		  </div>
+		  <hr class="dashed">
+		  <div class="col-lg" style = "background-color: rgb(123, 140, 147);">
+			<h3>Low Priority</h3>
+			<ul id="low-priority-tasks" class ="list-group"></ul>
+		  </div>
+		</div>
+	  </div>
 
 	
   <script src="main.js"></script>

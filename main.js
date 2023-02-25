@@ -1,81 +1,101 @@
-const taskForm = document.querySelector("#task-form");
-const taskInput = document.querySelector("#new-task-input");
-const taskDateInput = document.querySelector("#new-task-date");
-const taskPriorityInput = document.querySelector("#priority-select");
-const taskList = document.querySelector("#list-group");
+// add items to the list 
 
+// Get the form and button elements from the DOM
+const taskForm = document.getElementById("task-form");
+const newTaskInput = document.getElementById("new-task-input");
+const prioritySelect = document.getElementById("priority-select");
+// const dueDateInput = document.getElementById("dueDate");
+const newTaskSubmit = document.getElementById("new-task-submit");
+const taskList = document.getElementById("list-group");
+
+// Create an array to store the tasks
 let tasks = [];
 
-// Add a new task to the task list
-function addTask(task, dueDate, priority) {
-  const newTask = {
-    id: Date.now(),
-    name: task,
-    dueDate: dueDate,
-    priority: priority
+// Function to add a task to the tasks array and update the task list in the DOM
+function addTask(taskName, priority, dueDate) {
+	
+  // Create a new task object
+  const task = {
+    name: taskName,
+    priority: priority,
+	// dueDate: dueDate,
+	
   };
-  tasks.push(newTask);
-  displayTasks();
-}
 
-// Remove a task from the task list
-function removeTask(id) {
-  tasks = tasks.filter(task => task.id !== id);
-  displayTasks();
-}
+ 
+  // Add the task to the tasks array
+  tasks.push(task);
 
-// Display all the tasks in the task list
-function displayTasks() {
-  taskList.innerHTML = "";
-  for (let i = 0; i < tasks.length; i++) {
-    const taskItem = document.createElement("li");
-    taskItem.classList.add("list-group-item");
+ 
 
-    const taskCheckbox = document.createElement("input");
-    taskCheckbox.type = "checkbox";
-    taskCheckbox.addEventListener("change", function() {
-      removeTask(tasks[i].id);
-    });
+  // create a taskListItem and add to the check box 
+  const taskListItem = document.createElement("li");
+  taskListItem.className = "list-group-item";
 
-    const taskName = document.createElement("span");
-    taskName.textContent = tasks[i].name;
+  //create checkbox to the list item
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.className = "form-check-input me-2";
 
-    const taskDueDate = document.createElement("span");
-    taskDueDate.classList.add("badge", "bg-secondary", "ms-2");
-    taskDueDate.textContent = tasks[i].dueDate;
-
-    const taskPriority = document.createElement("span");
-    if (tasks[i].priority === "low") {
-      taskPriority.classList.add("badge", "bg-success", "ms-2");
-    } else if (tasks[i].priority === "medium") {
-      taskPriority.classList.add("badge", "bg-warning", "ms-2");
+  checkbox.addEventListener("change", function () {
+    if (this.checked) {
+      taskListItem.classList.add("completed");
     } else {
-      taskPriority.classList.add("badge", "bg-danger", "ms-2");
+      taskListItem.classList.remove("completed");
     }
-    taskPriority.textContent = tasks[i].priority;
+  });
+  
+  taskListItem.appendChild(checkbox);
 
-    taskItem.appendChild(taskCheckbox);
-    taskItem.appendChild(taskName);
-    taskItem.appendChild(taskDueDate);
-    taskItem.appendChild(taskPriority);
-    taskList.appendChild(taskItem);
-  }
+  //add task name to the list item
+  const taskNameSpan = document.createElement("span");
+  taskNameSpan.textContent = task.name;
+  taskListItem.appendChild(taskNameSpan);
+  
+// add task priority to task list item
+  const taskPrioritySpan = document.createElement("span");
+  taskPrioritySpan.className = "badge bg-primary rounded-pill";
+  taskPrioritySpan.textContent = task.priority;
+  taskListItem.appendChild(taskPrioritySpan);
+
+  //add taskListItem to task list
+  taskList.appendChild(taskListItem);
+
+
+  
 }
 
-// Handle form submission
-taskForm.addEventListener("submit", function(event) {
+// Add event listener to checkbox to toggle completed class on task list item
+
+
+// Add an event listener to the form submit button
+newTaskSubmit.addEventListener("click", function (event) {
   event.preventDefault();
-  const task = taskInput.value.trim();
-  const dueDate = taskDateInput.value;
-  const priority = taskPriorityInput.value;
-  if (task === "") {
+  const taskName = newTaskInput.value;
+  const priority = prioritySelect.value;
+//   const dueDate = dueDateInput.value;
+  if (taskName === "" || priority === "" ) {
+    alert("Please enter a task name,select the due date and select a priority");
     return;
   }
-  addTask(task, dueDate, priority);
-  taskInput.value = "";
-  taskDateInput.value = "";
-  taskPriorityInput.value = "low";
+  addTask(taskName, priority);
+  newTaskInput.value = "";
+  dueDateInput.value = "";
+//   dueDate.value ="";
+
 });
 
-// Initialize the app by displaying any existing tasks
-displayTasks();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
