@@ -82,6 +82,13 @@ html,body{
 	  opacity: 0.6;
   }
   
+
+  .list-group-item{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+  }
   
   
   input[type=text]{
